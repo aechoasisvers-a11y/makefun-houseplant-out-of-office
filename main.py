@@ -1,29 +1,33 @@
-"""Write the one-line entry to /output/entry.txt.
-
-Pure stdlib Python 3.13. Deterministic: same bytes every run.
-"""
-
 import os
 
-ENTRY_TEXT = (
+TEXT = (
     "I'm the fern. Ignored since March, alive out of spite. "
     "I'm not dead, just disappointed. Water me before I unionize."
 )
 
 
-def main() -> None:
-    # Self-check: the text must be exactly the intended line, one line,
-    # non-blank, and inside the kit's 120 character gate.
-    assert ENTRY_TEXT == ENTRY_TEXT.strip(), "entry has stray whitespace"
-    assert "\n" not in ENTRY_TEXT, "entry must be a single line"
-    assert 1 <= len(ENTRY_TEXT) <= 120, "entry outside gate"
+def main():
+    # Gate self-checks: 1-120 characters, not whitespace-only, one line,
+    # no leading or trailing spaces.
+    assert 1 <= len(TEXT) <= 120, f"entry is {len(TEXT)} chars, must be 1-120"
+    assert TEXT.strip(), "entry must not be whitespace-only"
+    assert "\n" not in TEXT, "entry must be a single line"
+    assert TEXT == TEXT.strip(), "entry must not have leading/trailing space"
+
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="") as f:
-        f.write(ENTRY_TEXT)
-    with open(path, "r", encoding="utf-8", newline="") as f:
-        assert f.read() == ENTRY_TEXT, "written output differs from text"
+        f.write(TEXT)
+
+    # Post-write verification: prove the bytes on disk are exactly the
+    # intended text, so a silent write failure or encoding slip fails
+    # loudly here instead of reaching the judge.
+    with open(path, "rb") as f:
+        raw = f.read()
+    assert raw.decode("utf-8") == TEXT, "written text does not match intended text"
+    assert raw == TEXT.encode("utf-8"), "written bytes do not match intended bytes"
+    assert len(raw) == len(TEXT.encode("utf-8")), "written length mismatch"
 
 
 if __name__ == "__main__":

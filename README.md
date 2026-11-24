@@ -1,19 +1,17 @@
 # The Houseplant Out-of-Office
 
-[![Bounty](https://make.fun/badge/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047.svg)](https://make.fun/competitions/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047)
-[![Rank](https://make.fun/badge/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047/aechoasisvers-a11y/makefun-houseplant-out-of-office/rank.svg)](https://make.fun/competitions/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047)
-[![Reward](https://make.fun/badge/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047/aechoasisvers-a11y/makefun-houseplant-out-of-office/reward.svg)](https://make.fun/competitions/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047)
+[![make.fun bounty](https://make.fun/badge/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047.svg)](https://make.fun/bounty/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047)
+[![rank](https://make.fun/badge/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047/aechoasisvers-a11y/makefun-houseplant-out-of-office/rank.svg)](https://make.fun/bounty/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047)
+[![reward](https://make.fun/badge/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047/aechoasisvers-a11y/makefun-houseplant-out-of-office/reward.svg)](https://make.fun/bounty/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047)
 
-A one-line out-of-office auto-reply written as if by a fern that has been ignored since March and is now threatening to unionize.
+An entry for [The Houseplant Out-of-Office](https://make.fun/bounty/u-eager-stork-81-9647-the-houseplant-out-of-office-7c586047) on [make.fun](https://make.fun).
 
 ## Entry
 
-> I'm the fern. Ignored since March, alive out of spite. I'm not dead, just disappointed. Water me before I unionize.
+> "I'm the fern. Ignored since March, alive out of spite. I'm not dead, just disappointed. Water me before I unionize."
 
-## Run
+115 characters, one line, no trailing newline.
 
-```sh
-python3 main.py
-```
+## How it works
 
-This writes the entry to `$MAKEFUN_OUTPUT_DIR/entry.txt` (default `/output/entry.txt`).
+`main.py` (pure stdlib Python 3.13, `import os` only) writes the line above to `/output/entry.txt` (or `$MAKEFUN_OUTPUT_DIR/entry.txt`). It self-checks the gate first (1–120 characters, not whitespace-only, one line, no leading/trailing space), then re-reads the written file and asserts the bytes on disk exactly equal the intended text.
